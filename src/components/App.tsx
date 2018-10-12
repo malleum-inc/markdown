@@ -1,9 +1,16 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import * as React from 'react';
 import Progress from './Progress';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import {EditorCommands} from "../lib/commands";
+import {Fabric} from "office-ui-fabric-react";
 
 
 export interface AppProps {
@@ -12,12 +19,14 @@ export interface AppProps {
 }
 
 export interface AppState {
+    powerMode: boolean;
 }
 
 export default class App extends React.Component<AppProps, AppState> {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            powerMode: false
         };
     }
 
@@ -29,20 +38,25 @@ export default class App extends React.Component<AppProps, AppState> {
 
         if (!isOfficeInitialized) {
             return (
-                <Progress
-                    title={title}
-                    logo='assets/icon0.png'
-                    message='Loading...'
-                />
+                <Fabric id={'container'} className='ms-bgColor-black'>
+                    <Progress
+                        title={title}
+                        logo='assets/watermark-white.png'
+                        message='Supercharging Outlook!'
+                    />
+                </Fabric>
             );
         }
 
         return (
-            <>
-                <Header/>
-                <Main editorDidMount={editor => EditorCommands.setEditorInstance(editor)}/>
+            <Fabric id={'container'}>
+                <Header onPowerMode={() => this.setState({powerMode: !this.state.powerMode})}/>
+                <Main
+                    editorDidMount={editor => EditorCommands.setEditorInstance(editor)}
+                    powerMode={this.state.powerMode}
+                />
                 <Footer/>
-            </>
+            </Fabric>
         );
     }
 }

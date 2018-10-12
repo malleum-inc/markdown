@@ -1,3 +1,9 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');

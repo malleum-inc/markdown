@@ -1,3 +1,9 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import * as React from 'react';
 import {Spinner, SpinnerSize} from 'office-ui-fabric-react/lib/components/Spinner';
 
@@ -12,18 +18,19 @@ export default class Progress extends React.Component<ProgressProps> {
         const {
             logo,
             title,
+            message,
         } = this.props;
 
         return (
             <>
-                <div className='header'/>
-                <div className='main ms-font-xxl ms-bgColor-black ms-fontColor-white'>
-                    <div style={{position: 'relative', top: '30%', height: 20, textAlign: 'center'}}>
+                <div style={{flex: 1}}/>
+                <div style={{border: 'none'}} className='main ms-md12 ms-lg12 ms-fontColor-white'>
+                    <div className='loadingSplash'>
                         <img style={{width: '20%'}} src={logo} alt={title} title={title}/>
-                        <Spinner size={SpinnerSize.large} />
+                        <Spinner size={SpinnerSize.large} label={message}/>
                     </div>
                 </div>
-                <div className='footer'/>
+                <div style={{flex: 1}}/>
             </>
         );
     }

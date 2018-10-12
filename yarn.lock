@@ -3,8 +3,8 @@
 
 
 "@microsoft/load-themed-styles@^1.7.13":
-  version "1.8.15"
-  resolved "https://registry.yarnpkg.com/@microsoft/load-themed-styles/-/load-themed-styles-1.8.15.tgz#dd48cf4ef9022b49d563ed9316b84792adef3e88"
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@microsoft/load-themed-styles/-/load-themed-styles-1.8.18.tgz#ca772348013f487b60269d8d220cf08ed136ddd6"
 
 "@microsoft/office-js-helpers@^1.0.1":
   version "1.0.2"
@@ -1706,14 +1706,6 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "=3.1.0"
 
-font-awesome@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
-
-fontawesome@^4.7.2:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/fontawesome/-/fontawesome-4.7.2.tgz#7f0c72ac7a6b029d3375bacb23522d9acfc50a52"
-
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -1997,10 +1989,6 @@ hmac-drbg@^1.0.0:
 hosted-git-info@^2.1.4:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
-
-hotkeys-js@^3.3.8:
-  version "3.3.8"
-  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.3.8.tgz#c8615cf4dd61b3f0b8cec9cc64831a2a9454d9c7"
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -2838,19 +2826,9 @@ markdown-it-emoji@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
 
-markdown-it-fontawesome@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/markdown-it-fontawesome/-/markdown-it-fontawesome-0.3.0.tgz#c0b3068d968b2e9bc4d687061746af7fbc58f959"
-  dependencies:
-    markdown-it-regexp "^0.4.0"
-
 markdown-it-footnote@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.1.tgz#7f3730747cacc86e2fe0bf8a17a710f34791517a"
-
-markdown-it-ghost-upload@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/markdown-it-ghost-upload/-/markdown-it-ghost-upload-1.0.1.tgz#672ccc914910b9f43867e30b1c2d9be44cb7519a"
 
 markdown-it-highlightjs@^3.0.0:
   version "3.0.0"
@@ -3079,10 +3057,6 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
-
-mousetrap@^1.5.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.2.tgz#caadd9cf886db0986fb2fee59a82f6bd37527587"
 
 ms@2.0.0:
   version "2.0.0"
@@ -3352,8 +3326,8 @@ office-toolbox@^0.1.0:
     xml2js "^0.4.17"
 
 office-ui-fabric-react@^5.51.0:
-  version "5.128.0"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-5.128.0.tgz#db45e1c2d9a826f7cafcba80cdb2d5348db2333a"
+  version "5.128.1"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-5.128.1.tgz#d15442949f4837210bb173579e5dc3e78943f1f1"
   dependencies:
     "@microsoft/load-themed-styles" "^1.7.13"
     "@uifabric/icons" ">=5.8.0 <6.0.0"
@@ -3845,12 +3819,6 @@ react-dom@^16.2.0:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
-react-hot-keys@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/react-hot-keys/-/react-hot-keys-1.2.2.tgz#079dcecb15db7fa669300eeb844cfda8f920d4a4"
-  dependencies:
-    hotkeys-js "^3.3.8"
-
 react-hot-loader@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.1.3.tgz#6f92877326958c7cb0134b512474517869126082"
@@ -3860,12 +3828,6 @@ react-hot-loader@^3.1.3:
     react-proxy "^3.0.0-alpha.0"
     redbox-react "^1.3.6"
     source-map "^0.6.1"
-
-react-keyboard-shortcuts@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-keyboard-shortcuts/-/react-keyboard-shortcuts-1.1.3.tgz#5aa18caa9e74dd24b90cb1f687e4709e5064bf8b"
-  dependencies:
-    mousetrap "^1.5.2"
 
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"

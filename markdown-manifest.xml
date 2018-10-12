@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <OfficeApp
         xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,7 +14,7 @@
 
     <!--Version. Updates from the store only get triggered if there is a version change. -->
     <Version>1.0.0.0</Version>
-    <ProviderName>Red Canari</ProviderName>
+    <ProviderName>Red Canari, Inc.</ProviderName>
     <DefaultLocale>en-US</DefaultLocale>
     <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
     <DisplayName DefaultValue="Markdown"/>
@@ -21,18 +22,10 @@
 
     <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
     <IconUrl DefaultValue="https://localhost:3000/assets/icon0-32x32.png"/>
-    <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon0.png"/>
+    <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/hires-icon.png"/>
 
     <!--If you plan to submit this add-in to the Office Store, uncomment the SupportUrl element below-->
     <SupportUrl DefaultValue="https://localhost:3000/support.html"/>
-
-    <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
-    <!--<AppDomains>-->
-    <!--<AppDomain>AppDomain1</AppDomain>-->
-    <!--<AppDomain>AppDomain2</AppDomain>-->
-    <!--<AppDomain>AppDomain3</AppDomain>-->
-    <!--</AppDomains>-->
-    <!--End Basic Settings. -->
 
     <Hosts>
         <Host Name="Mailbox"/>
@@ -83,6 +76,21 @@
                             <Group id="msgEditGroup">
                                 <Label resid="groupLabel"/>
                                 <!-- Launch the add-in : task pane button -->
+                                <Control xsi:type="Button" id="msgInlineRenderButton">
+                                    <Label resid="cmdRenderLabel"/>
+                                    <Supertip>
+                                        <Title resid="cmdRenderSuperTipTitle"/>
+                                        <Description resid="cmdRenderSuperTipDescription"/>
+                                    </Supertip>
+                                    <Icon>
+                                        <bt:Image size="16" resid="icon0-16"/>
+                                        <bt:Image size="32" resid="icon0-32"/>
+                                        <bt:Image size="80" resid="icon0-80"/>
+                                    </Icon>
+                                    <Action xsi:type="ExecuteFunction">
+                                        <FunctionName>renderMarkdown</FunctionName>
+                                    </Action>
+                                </Control>
                                 <Control xsi:type="Button" id="msgEditOpenPaneButton">
                                     <Label resid="paneEditButtonLabel"/>
                                     <Supertip>
@@ -90,9 +98,9 @@
                                         <Description resid="paneEditSuperTipDescription"/>
                                     </Supertip>
                                     <Icon>
-                                        <bt:Image size="16" resid="icon16"/>
-                                        <bt:Image size="32" resid="icon32"/>
-                                        <bt:Image size="80" resid="icon80"/>
+                                        <bt:Image size="16" resid="icon1-16"/>
+                                        <bt:Image size="32" resid="icon1-32"/>
+                                        <bt:Image size="80" resid="icon1-80"/>
                                     </Icon>
                                     <Action xsi:type="ShowTaskpane">
                                         <SourceLocation resid="messageEditTaskPaneUrl"/>
@@ -109,9 +117,12 @@
 
         <Resources>
             <bt:Images>
-                <bt:Image id="icon16" DefaultValue="https://localhost:3000/assets/icon0-16x16.png"/>
-                <bt:Image id="icon32" DefaultValue="https://localhost:3000/assets/icon0-32x32.png"/>
-                <bt:Image id="icon80" DefaultValue="https://localhost:3000/assets/icon0-80x80.png"/>
+                <bt:Image id="icon0-16" DefaultValue="https://localhost:3000/assets/icon0-16x16.png"/>
+                <bt:Image id="icon0-32" DefaultValue="https://localhost:3000/assets/icon0-32x32.png"/>
+                <bt:Image id="icon0-80" DefaultValue="https://localhost:3000/assets/icon0-80x80.png"/>
+                <bt:Image id="icon1-16" DefaultValue="https://localhost:3000/assets/icon1-16x16.png"/>
+                <bt:Image id="icon1-32" DefaultValue="https://localhost:3000/assets/icon1-32x32.png"/>
+                <bt:Image id="icon1-80" DefaultValue="https://localhost:3000/assets/icon1-80x80.png"/>
             </bt:Images>
             <bt:Urls>
                 <bt:Url id="functionFile" DefaultValue="https://localhost:3000/function-file/function-file.html"/>
@@ -122,10 +133,14 @@
                 <bt:String id="customTabLabel" DefaultValue="Markdown Editing"/>
                 <bt:String id="paneEditButtonLabel" DefaultValue="Markdown Editor"/>
                 <bt:String id="paneEditSuperTipTitle" DefaultValue="Open the Markdown editor."/>
+                <bt:String id="cmdRenderLabel" DefaultValue="Render Markdown"/>
+                <bt:String id="cmdRenderSuperTipTitle" DefaultValue="Render selected Markdown"/>
             </bt:ShortStrings>
             <bt:LongStrings>
                 <bt:String id="paneEditSuperTipDescription"
                            DefaultValue="Opens a pane that displays the Markdown editor."/>
+                <bt:String id="cmdRenderSuperTipDescription"
+                           DefaultValue="Render selected Markdown in the main Outlook editor"/>
             </bt:LongStrings>
         </Resources>
     </VersionOverrides>

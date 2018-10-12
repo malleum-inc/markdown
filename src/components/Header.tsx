@@ -1,10 +1,27 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import * as React from 'react';
 
-import {CommandBar} from 'office-ui-fabric-react/lib/CommandBar';
+import {CommandBar, ICommandBarItemProps} from 'office-ui-fabric-react/lib/CommandBar';
 import {EditorCommands} from "../lib/commands";
-import {IContextualMenuItem} from "office-ui-fabric-react/lib/ContextualMenu";
 
-export default class Header extends React.Component<{}, {}> {
+export interface HeaderProps {
+    onPowerMode: any;
+}
+
+export interface HeaderState {
+    powerMode: boolean;
+}
+
+export default class Header extends React.Component<HeaderProps, HeaderState> {
+
+    state = {
+        powerMode: false
+    };
 
     editorCommands = EditorCommands.getInstance();
 
@@ -23,17 +40,35 @@ export default class Header extends React.Component<{}, {}> {
         );
     }
 
-    private getOverflowItems = () : IContextualMenuItem[] => {
-      return [];
+    private getOverflowItems = (): ICommandBarItemProps[] => {
+        return [];
     };
 
-    private getFarItems = () : IContextualMenuItem[] => {
+    private getFarItems = (): ICommandBarItemProps[] => {
         return [
             {
+                key: 'powerMode',
+                name: 'Power Mode',
+                cacheKey: `powerMode-${this.state.powerMode}`,
+                iconProps: {
+                    iconName: 'PowerButton'
+                },
+                canCheck: true,
+                iconOnly: true,
+                checked: this.state.powerMode,
+                onClick: () => {
+                    this.setState({powerMode: !this.state.powerMode});
+                    this.props.onPowerMode();
+                    this.editorCommands.focus();
+                }
+            },
+            {
                 key: 'help',
+                name: 'Help',
                 iconProps: {
                     iconName: 'Info'
                 },
+                iconOnly: true,
                 href: 'https://help.github.com/articles/basic-writing-and-formatting-syntax/',
                 ['data-automation-id']: 'helpButton'
             }
@@ -41,13 +76,15 @@ export default class Header extends React.Component<{}, {}> {
     };
 
     // Data for CommandBar
-    private getItems = () : IContextualMenuItem[] => {
+    private getItems = (): ICommandBarItemProps[] => {
         return [
             {
                 key: 'renderMarkdown',
                 name: 'Insert Markdown',
                 onClick: () => this.editorCommands.insertMarkdown(),
-                className: "ms-fontColor-white"
+                iconProps: {
+                    iconName: 'MarkDownLanguage'
+                }
             },
             {
                 key: 'formatMenu',
@@ -105,8 +142,8 @@ export default class Header extends React.Component<{}, {}> {
                             onClick: () => this.editorCommands.subscript()
                         },
                         {
-                           key: 'separator-0',
-                           name: '-'
+                            key: 'separator-0',
+                            name: '-'
                         },
                         {
                             key: 'heading1',

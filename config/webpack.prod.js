@@ -1,3 +1,9 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');

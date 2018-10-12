@@ -1,12 +1,17 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import {AppContainer} from 'react-hot-loader';
+import {initializeIcons} from 'office-ui-fabric-react/lib/Icons';
 
 import App from './components/App';
 
 import './styles.less';
-import 'office-ui-fabric-react/dist/css/fabric.min.css';
 
 initializeIcons();
 
@@ -17,9 +22,9 @@ const title = 'Markdown';
 const render = (Component) => {
     ReactDOM.render(
         <AppContainer>
-            <Component title={title} isOfficeInitialized={isOfficeInitialized} />
+                <Component title={title} isOfficeInitialized={isOfficeInitialized}/>
         </AppContainer>,
-        document.getElementById('container')
+        document.body.firstElementChild
     );
 };
 

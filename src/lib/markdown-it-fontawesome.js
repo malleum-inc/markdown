@@ -1,9 +1,14 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 'use strict';
 
-var Plugin = require('markdown-it-regexp');
+const Plugin = require('markdown-it-regexp');
 
-module.exports = function fontawesome_plugin(md) {
-    // FA4 style.
+module.exports = function(md) {
     md.use(Plugin(
         /:fa-([\w\-]+?)(?:\s+(\d+))?:/,
         function (match, utils) {

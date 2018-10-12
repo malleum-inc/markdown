@@ -1,19 +1,9 @@
-//.flex-row {
-//  display: flex;
-//  flex-direction: row;
-//  flex-wrap: nowrap;
-//}
-//
-//.flex-column {
-//  display: flex;
-//  flex-direction: column;
-//  flex-wrap: nowrap;
-//}
-//
-//.flex-align(@mainAxis: center; @crossAxis: center) {
-//  justify-content: @mainAxis;
-//  align-items: @crossAxis;
-//}
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 
 * {
   margin: 0;
@@ -28,38 +18,45 @@ body {
   padding: 0;
 }
 
+#parent {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
 
 #container {
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr min-content;
-  grid-template-areas:
-          "header"
-          "main"
-          "footer";
+
+  display: flex;
+  flex-direction: column;
 
   .header {
-    grid-area: header;
+    height: min-content;
   }
 
   .main {
-    grid-area: main;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     overflow-y: auto;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 
     .CodeMirror, .react-codemirror2 {
       padding: 0;
       margin: 0;
-      height: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
   }
 
   .footer {
-    grid-area: footer;
+    height: min-content;
   }
 
 }
@@ -67,4 +64,11 @@ body {
 .CodeMirror {
   background: url("/assets/watermark.png") center no-repeat;
   background-size: contain;
+  height: auto;
+}
+
+
+.loadingSplash {
+  text-align: center;
+  flex: 1;
 }

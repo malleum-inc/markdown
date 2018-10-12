@@ -1,26 +1,33 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import * as React from 'react';
+
+(window as any).CodeMirror = require('codemirror/lib/codemirror');
+import '../lib/code-blast';
 import {UnControlled as CodeMirror} from 'react-codemirror2';
 import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/gfm/gfm';
 import 'codemirror/keymap/sublime';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/search/match-highlighter';
 import 'codemirror/addon/display/placeholder';
-import 'codemirror/mode/gfm/gfm';
 import 'codemirror/lib/codemirror.css';
 import {EditorCommands} from "../lib/commands";
 
 export interface MainProps {
     platform?: string;
     editorDidMount?;
+    powerMode?: boolean;
 }
 
-export interface MainState {
-    value: string;
-}
 
-export default class Main extends React.PureComponent<MainProps, MainState> {
+export default class Main extends React.PureComponent<MainProps, {}> {
 
     static baseListRegex = '^\\s*' +
         '(' +
@@ -126,7 +133,7 @@ export default class Main extends React.PureComponent<MainProps, MainState> {
     };
 
     private getLanguage = (codeFenceStart) => {
-        return codeFenceStart.match(/[^`~\s.]+/);
+        return (codeFenceStart.match(/[^`~\s.]+/) || [undefined])[0];
     };
 
     onChange = (cm, change) => {
@@ -134,12 +141,12 @@ export default class Main extends React.PureComponent<MainProps, MainState> {
         if (this.isFencedCodeBlock(lastLine)) {
             let language = this.getLanguage(lastLine);
             if (language) {
-                try {
-                    language = /^([cj][+#]{0,2}|java|objc)$/i.test(language) ? 'clike' : language;
-                    require(`codemirror/mode/${language}/${language}`);
-                } catch (e) {
-                    console.log(`Unknown language option: ${language}`);
-                }
+                language = /^([cj][+#]{0,2}|java|obj(?:ective)?-?c|scala|squirrel|ceylon)$/i.test(language) ? 'clike' : language;
+                console.log(language);
+                import(
+                    /* webpackIgnore: true */
+                    `codemirror/mode/${language}/${language}`
+                ).catch(console.log);
             }
         }
     };
@@ -199,6 +206,7 @@ export default class Main extends React.PureComponent<MainProps, MainState> {
                                 emoji: "emoji"
                             }
                         },
+                        blastCode: this.props.powerMode ? {effect: 1} : undefined,
                         style: {backgroundColor: '#000'},
                         lineWrapping: true,
                         // lineNumbers: true,

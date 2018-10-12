@@ -1,11 +1,17 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 import {IInstance} from "react-codemirror2";
 import Main from "../components/Main";
+import CoercionType = Office.CoercionType;
 
 const juice = require('juice/client');
 
 const extraStyles = [
     require('highlightjs/styles/github.css?inline'),
-    require('font-awesome/css/font-awesome.css?inline').replace(/url\(\/assets/mg, `url(${document.location.origin}/assets`),
     require('../style/extra.css?inline')
 ].join('');
 
@@ -95,7 +101,7 @@ export interface IEditorCommands {
 
     clear(cm?: ICodeMirrorEditor);
 
-    renderMarkdown(cm?: ICodeMirrorEditor, text?: string)
+    // renderMarkdown(text?: string)
 
     insertMarkdown(cm?: ICodeMirrorEditor)
 }
@@ -273,24 +279,24 @@ export class EditorCommands implements IEditorCommands {
 
     public horizontalLine = (cm = EditorCommands.editor) => cm.replaceSelection('\n\n---\n\n');
 
-    public renderMarkdown = (_cm = EditorCommands.editor, text?: string) => {
+    public static renderMarkdown = (text?: string) => {
         let content = juice(md.render(text), {extraCss: extraStyles}) + '<br/>';
 
         (content.match(/<input[^>]+>/gm) || []).forEach((m) => {
             content = content.replace(m, `${m.indexOf('checked') !== -1 ? CHECKED : UNCHECKED} &nbsp; `)
         });
 
-        console.log(content);
         return content;
     };
 
-    private setSelectedBody = (text) => {
+    public static setSelectedBodyAsHtml = (text, callback?) => {
         Office.context.mailbox.item.body.setSelectedDataAsync(
             text,
             {
                 coercionType: Office.CoercionType.Html,
                 asyncContext: {}
-            }
+            },
+            callback
         );
     };
 
@@ -335,9 +341,30 @@ export class EditorCommands implements IEditorCommands {
         }
 
         if (text)
-            this.setSelectedBody(this.renderMarkdown(cm, text));
+            EditorCommands.setSelectedBodyAsHtml(EditorCommands.renderMarkdown(text));
     };
 
+    static getSelectedBodyAsText(callback) {
+        Office.context.mailbox.item.body.getAsync(CoercionType.Text, callback);
+    }
+
+    static setSelectedBodyAsText(text, callback?) {
+        Office.context.mailbox.item.body.setSelectedDataAsync(
+            text,
+            {
+                coercionType: Office.CoercionType.Text,
+                asyncContext: {}
+            },
+            callback
+        );
+    }
+
+    static getItemType(callback) {
+        Office.context.mailbox.item.body.getTypeAsync(callback);
+    }
+
     public clear = (cm = EditorCommands.editor) => cm.setValue('');
+
+    public focus = (cm = EditorCommands.editor) => cm.focus();
 
 }

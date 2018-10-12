@@ -1,3 +1,9 @@
+/**
+ * @license MIT
+ * @author Nadeem Douba <ndouba@redcanari.com>
+ * @copyright Red Canari, Inc. 2018
+ */
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
