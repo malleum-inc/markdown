@@ -88,7 +88,7 @@ const rules = [
 
 const output = {
     path: path.resolve('dist'),
-    publicPath: '/',
+    publicPath: '/markdown/',
     filename: '[name].[hash].js',
     chunkFilename: '[id].[hash].chunk.js'
 };
