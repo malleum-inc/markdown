@@ -11,6 +11,10 @@ import {EditorCommands} from "../lib/commands";
 
 export interface HeaderProps {
     onPowerMode: any;
+    onOpenWindow: any;
+    onWindowEvent: any;
+    onWindowMessage: any;
+    documentId: string;
 }
 
 export interface HeaderState {
@@ -44,6 +48,16 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
         return [];
     };
 
+    private processWindowMessage = (message) => {
+        console.log(JSON.stringify(message));
+        this.props.onWindowMessage(message);
+    };
+
+    private processWindowEvent = (event) => {
+        console.log(JSON.stringify(event));
+        this.props.onWindowEvent(event)
+    };
+
     private getFarItems = (): ICommandBarItemProps[] => {
         return [
             {
@@ -60,6 +74,31 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     this.setState({powerMode: !this.state.powerMode});
                     this.props.onPowerMode();
                     this.editorCommands.focus();
+                }
+            },
+            {
+                key: 'openCloseEditorWindow',
+                name: (Office.context.mailbox)?'Open in Separate Window':'Close Window',
+                iconProps: {
+                    iconName: (Office.context.mailbox)?'OpenInNewWindow':'ChromeClose'
+                },
+                iconOnly: true,
+                onClick: () => {
+                    if (Office.context.mailbox) {
+                        Office.context.ui.displayDialogAsync(
+                            `/?documentId=${this.props.documentId}`,
+                            (result) => {
+                                if (result.status == Office.AsyncResultStatus.Succeeded) {
+                                    let dialog = result.value;
+                                    dialog.addEventHandler(Office.EventType.DialogMessageReceived, this.processWindowMessage);
+                                    dialog.addEventHandler(Office.EventType.DialogMessageReceived, this.processWindowEvent);
+                                    this.props.onOpenWindow(dialog);
+                                }
+                            }
+                        );
+                    } else {
+                        Office.context.ui.messageParent('close');
+                    }
                 }
             },
             {

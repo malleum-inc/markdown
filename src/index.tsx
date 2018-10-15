@@ -22,7 +22,7 @@ const title = 'Markdown';
 const render = (Component) => {
     ReactDOM.render(
         <AppContainer>
-                <Component title={title} isOfficeInitialized={isOfficeInitialized}/>
+            <Component title={title} isOfficeInitialized={isOfficeInitialized}/>
         </AppContainer>,
         document.body.firstElementChild
     );
@@ -31,6 +31,10 @@ const render = (Component) => {
 /* Render application after Office initializes */
 Office.initialize = () => {
     isOfficeInitialized = true;
+
+    if (!Office.context.mailbox)
+        setInterval(() => !window.opener && window.close(), 100);
+
     render(App);
 };
 

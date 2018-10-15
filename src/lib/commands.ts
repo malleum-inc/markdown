@@ -28,8 +28,11 @@ const md = require('markdown-it')({
     .use(require('markdown-it-abbr'))
     .use(require('markdown-it-highlightjs'))
     .use(require('markdown-it-task-lists'))
+    .use(require('markdown-it-mathjax'))
     .use(require('markdown-it-imsize'))
     .use(require('../lib/markdown-it-fontawesome'));
+
+const uuid = require('../lib/uuid4.min');
 
 
 interface ICursor {
@@ -116,11 +119,23 @@ export class EditorCommands implements IEditorCommands {
 
     static setEditorInstance(editor) {
         this.editor = editor;
+        this.loadDocument();
     }
 
     static getInstance() {
         return this.instance;
     }
+
+    static loadDocument(documentId?: string, cm: ICodeMirrorEditor = EditorCommands.editor) {
+        let data = localStorage.getItem(documentId || this.getDocumentId());
+        if (typeof data === 'string')
+            cm.setValue(data);
+    }
+
+    static getDocumentId() {
+        const searchParams = new URLSearchParams(location.search);
+        return searchParams.get('documentId') || uuid();
+    };
 
     private isSurrounded = (text: string, token: string, endToken?: string): boolean => {
         return text.startsWith(token) && text.endsWith(endToken);
@@ -296,7 +311,7 @@ export class EditorCommands implements IEditorCommands {
                 coercionType: Office.CoercionType.Html,
                 asyncContext: {}
             },
-            callback
+            callback || console.log
         );
     };
 
@@ -306,6 +321,11 @@ export class EditorCommands implements IEditorCommands {
     };
 
     public insertMarkdown = (cm = EditorCommands.editor) => {
+        if (!Office.context.mailbox) {
+            Office.context.ui.messageParent('insertMarkdown');
+            return;
+        }
+
         let text = cm.getValue();
         const [emailHeader] = text.match(Main.hasEmailHeader) || [undefined];
 
@@ -342,6 +362,8 @@ export class EditorCommands implements IEditorCommands {
 
         if (text)
             EditorCommands.setSelectedBodyAsHtml(EditorCommands.renderMarkdown(text));
+
+        cm.setValue('');
     };
 
     static getSelectedBodyAsText(callback) {
@@ -355,7 +377,7 @@ export class EditorCommands implements IEditorCommands {
                 coercionType: Office.CoercionType.Text,
                 asyncContext: {}
             },
-            callback
+            callback || console.log
         );
     }
 

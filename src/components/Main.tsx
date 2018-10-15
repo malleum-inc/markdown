@@ -14,6 +14,7 @@ import 'codemirror/mode/gfm/gfm';
 import 'codemirror/keymap/sublime';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/search/match-highlighter';
 import 'codemirror/addon/display/placeholder';
@@ -24,6 +25,7 @@ export interface MainProps {
     platform?: string;
     editorDidMount?;
     powerMode?: boolean;
+    documentId: string;
 }
 
 
@@ -142,13 +144,13 @@ export default class Main extends React.PureComponent<MainProps, {}> {
             let language = this.getLanguage(lastLine);
             if (language) {
                 language = /^([cj][+#]{0,2}|java|obj(?:ective)?-?c|scala|squirrel|ceylon)$/i.test(language) ? 'clike' : language;
-                console.log(language);
                 import(
                     /* webpackIgnore: true */
                     `codemirror/mode/${language}/${language}`
                 ).catch(console.log);
             }
         }
+        localStorage.setItem(this.props.documentId, cm.getValue());
     };
 
     onBeforeChange = (cm, change) => {

@@ -76,21 +76,6 @@
                             <Group id="msgEditGroup">
                                 <Label resid="groupLabel"/>
                                 <!-- Launch the add-in : task pane button -->
-                                <Control xsi:type="Button" id="msgInlineRenderButton">
-                                    <Label resid="cmdRenderLabel"/>
-                                    <Supertip>
-                                        <Title resid="cmdRenderSuperTipTitle"/>
-                                        <Description resid="cmdRenderSuperTipDescription"/>
-                                    </Supertip>
-                                    <Icon>
-                                        <bt:Image size="16" resid="icon0-16"/>
-                                        <bt:Image size="32" resid="icon0-32"/>
-                                        <bt:Image size="80" resid="icon0-80"/>
-                                    </Icon>
-                                    <Action xsi:type="ExecuteFunction">
-                                        <FunctionName>renderMarkdown</FunctionName>
-                                    </Action>
-                                </Control>
                                 <Control xsi:type="Button" id="msgEditOpenPaneButton">
                                     <Label resid="paneEditButtonLabel"/>
                                     <Supertip>
@@ -98,12 +83,27 @@
                                         <Description resid="paneEditSuperTipDescription"/>
                                     </Supertip>
                                     <Icon>
+                                        <bt:Image size="16" resid="icon0-16"/>
+                                        <bt:Image size="32" resid="icon0-32"/>
+                                        <bt:Image size="80" resid="icon0-80"/>
+                                    </Icon>
+                                    <Action xsi:type="ShowTaskpane">
+                                        <SourceLocation resid="messageEditTaskPaneUrl"/>
+                                    </Action>
+                                </Control>
+                                <Control xsi:type="Button" id="msgInlineRenderButton">
+                                    <Label resid="cmdRenderLabel"/>
+                                    <Supertip>
+                                        <Title resid="cmdRenderSuperTipTitle"/>
+                                        <Description resid="cmdRenderSuperTipDescription"/>
+                                    </Supertip>
+                                    <Icon>
                                         <bt:Image size="16" resid="icon1-16"/>
                                         <bt:Image size="32" resid="icon1-32"/>
                                         <bt:Image size="80" resid="icon1-80"/>
                                     </Icon>
-                                    <Action xsi:type="ShowTaskpane">
-                                        <SourceLocation resid="messageEditTaskPaneUrl"/>
+                                    <Action xsi:type="ExecuteFunction">
+                                        <FunctionName>renderMarkdown</FunctionName>
                                     </Action>
                                 </Control>
                                 <!-- Go to http://aka.ms/ButtonCommands to learn how to add more Controls: ExecuteFunction and Menu -->
