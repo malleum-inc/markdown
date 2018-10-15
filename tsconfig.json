@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "outDir": "dist",
+    "outDir": "docs",
     "allowUnusedLabels": false,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
