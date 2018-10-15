@@ -28,7 +28,6 @@ const md = require('markdown-it')({
     .use(require('markdown-it-abbr'))
     .use(require('markdown-it-highlightjs'))
     .use(require('markdown-it-task-lists'))
-    .use(require('markdown-it-mathjax'))
     .use(require('markdown-it-imsize'))
     .use(require('../lib/markdown-it-fontawesome'));
 
